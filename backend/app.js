@@ -30,6 +30,8 @@ const userroutes = require("./routes/user.routes");
 
 const videoRoutes = require("./routes/video.routes");
 
+const streamingRoutes = require("./routes/streaming.routes");
+
 
 const db = mongoose.connect(
   MONGO_URL,
@@ -116,6 +118,7 @@ app.use("/courses/api", authRoutes);
 app.use("/courses/api/teacher", ProfRoutes);
 app.use("/courses/api/user", userroutes);
 app.use("/courses/api/video", videoRoutes);
+app.use("/courses/api/streaming",streamingRoutes);
 
 
 app.use(helmet({ contentSecurityPolicy: false }));

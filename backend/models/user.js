@@ -1,5 +1,21 @@
 const mongoose = require("mongoose");
 
+let bookmarkSchema = new Schema({
+  video: { type: mongoose.ObjectId, ref: "Media" },
+  timestamp: { type: String },
+  text: { type: String },
+});
+
+let courseSchema = new Schema({
+  course: { type: mongoose.ObjectId, ref: "Course" },
+  completed_videos: [{ type: mongoose.ObjectId, ref: "Media" }],
+  last_view: new Schema({
+    video: { type: mongoose.ObjectId, ref: "Media" },
+    timestamp: { type: String },
+  }),
+  Bookmarks: [bookmarkSchema],
+});
+
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   name: { type: String, required: true },
@@ -9,7 +25,8 @@ const UserSchema = new mongoose.Schema({
   outlookId: { type: String, required: true },
   contact: { type: Number, length: 10 },
   coursesTeach: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
-  coursesTaken: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
+  coursesTaken: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
+  enrolled_courses: [courseSchema],
 });
 
 module.exports = mongoose.model("User", UserSchema);
