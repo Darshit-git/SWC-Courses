@@ -10,14 +10,34 @@ const mongoSanitize = require("express-mongo-sanitize");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const Prof = require("./models/Prof.js");
+const TA = require("./models/TA");
+const user = require("./models/user.js");
 require("dotenv").config();
 const helmet = require("helmet");
 const MONGO_URL = "mongodb://localhost/SWC_DB";
- //const MONGO_URL = "mongodb://mongo:27017/SAC_DB";
+//const MONGO_URL = "mongodb://mongo:27017/SAC_DB";
 //const url = process.env.MONGO_URI;
 const app = express();
 const PORT = process.env.PORT || 8080;
+const { AUTH_ENABLED, ROLE,USER_ID, ACCESS_TOKEN } = process.env
 require("./config/passportAzure");
+
+let noAuthMiddleWare = (req, res, next) => {
+  let data = { role: ROLE };
+  user.findByIdAndUpdate(req.params.id,data);
+  req["user"] = {
+    isAdmin: true,
+    email: "xyz@iitg.ac.in",
+    id: USER_ID,
+    accessToken: ACCESS_TOKEN
+  }
+  next();
+}
+
+if(AUTH_ENABLED == '0'){
+  app.use(noAuthMiddleWare)
+}
 
 //required routes
 const authRoutes = require("./routes/auth.routes");
@@ -118,7 +138,7 @@ app.use("/courses/api", authRoutes);
 app.use("/courses/api/teacher", ProfRoutes);
 app.use("/courses/api/user", userroutes);
 app.use("/courses/api/video", videoRoutes);
-app.use("/courses/api/streaming",streamingRoutes);
+app.use("/courses/api/streaming", streamingRoutes);
 
 
 app.use(helmet({ contentSecurityPolicy: false }));

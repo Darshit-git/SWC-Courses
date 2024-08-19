@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 
 const courseController = require('../controllers/course.controller')
 const streamingController = require('../controllers/streaming.controller')
+const { isLoggedIn } = require("../middlewares/auth");
 const { IsAdmin } = require('../middlewares/auth')
 
 router.get("/video/:id/:video_id", isLoggedIn, streamingController.getVideo);

@@ -127,7 +127,7 @@ exports.getOneCourse = async (req, res, next) => {
             // if user is signed in 
             let getcourse = Course.findOne({ _id: req.params.id })
             let getuser = User.findOne({
-                _id: "60e76a815ad1e054fc6a9680", 
+                _id: req.user.id, 
                 coursesTaken: req.params.id
             })
             let [user, course] = await Promise.all([getuser, getcourse])
@@ -230,7 +230,7 @@ exports.enrollInCourse = async (req, res, next) => {
     try {
         const { enrollmentkey } = req.body
         let getcourse = Course.findOne({ _id: req.params.id });
-        let getuser = User.findById("60e76a815ad1e054fc6a9680")
+        let getuser = User.findById(req.user.id)
         let [user, course] = await Promise.all([getuser, getcourse]);
         const ENROLLMENTKEY = course.enrollmentkey || enrollmentkey
         if (course) {
@@ -295,9 +295,9 @@ exports.postCourse = async (req, res) => {
                 throw new Error(err.message);
             }
         })
-        course.author = "60e76a815ad1e054fc6a9680"
+        course.author = req.user.id
         let savecourse = course.save()
-        let getuser = User.findById("60e76a815ad1e054fc6a9680")
+        let getuser = User.findById(req.user.id)
         let [user, newCourse] = await Promise.all([getuser, savecourse])
         user.coursesTeach.push(newCourse._id)
         await user.save()
@@ -604,11 +604,3 @@ exports.saveNewRecordings = async (req, res) => {
         return res.status(500).json({ status: false, error: err.message })
     }
 }
-
-
-
-
-
-
-
-

@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-let bookmarkSchema = new Schema({
+let bookmarkSchema = new mongoose.Schema({
   video: { type: mongoose.ObjectId, ref: "Media" },
   timestamp: { type: String },
   text: { type: String },
 });
 
-let courseSchema = new Schema({
+let courseSchema = new mongoose.Schema({
   course: { type: mongoose.ObjectId, ref: "Course" },
   completed_videos: [{ type: mongoose.ObjectId, ref: "Media" }],
-  last_view: new Schema({
+  last_view: new mongoose.Schema({
     video: { type: mongoose.ObjectId, ref: "Media" },
     timestamp: { type: String },
   }),
