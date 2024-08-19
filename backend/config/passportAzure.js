@@ -16,7 +16,7 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-
+console.log(CLIENT_HOME_PAGE_URL)
 passport.use(
   new MicrosoftStrategy(
     {
@@ -34,7 +34,6 @@ passport.use(
 
         const user = await User.findOne({ email: userProfile.mail });
         if (user) return done(null, user);
-
         const newUser = new User({
           outlookId: userProfile.id,
           name: userProfile.givenName,
