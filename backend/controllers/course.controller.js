@@ -35,7 +35,9 @@ const checkFileType = (file, cb, type = 0) => {
 
     const filetypes = type ? /pdf|docx|txt|doc|ppt|pptx/ : /jpeg|jpg|png|gif/;
     // Check ext
+    console.log(filetypes)
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    console.log(path.extname(file.originalname).toLowerCase())
     // Check mime
     const mimetype = filetypes.test(file.mimetype);
 
@@ -532,7 +534,6 @@ exports.courseImageUpload = async (req, res, next) => {
             return res.status(500).json({ status: false, error: err.message })
         }
         else {
-            console.log(req.file)
             if (req.file) {
                 console.log("File Successfully Uploaded!!!")
             }
