@@ -60,7 +60,7 @@ function WelcomeContainerSVG() {
                 <path d="M60.1353 349.892C60.1789 352.215 58.0551 354.369 55.741 354.305C53.4269 354.242 51.3945 351.941 51.6736 349.641C51.879 348.002 52.9926 346.751 54.4088 345.817C55.0595 345.604 55.751 345.547 56.4277 345.651C57.1043 345.754 57.7472 346.015 58.3045 346.413C58.8618 346.81 59.3179 347.333 59.6361 347.939C59.9543 348.546 60.1256 349.218 60.1364 349.902L60.1353 349.892Z" fill="#FE7979"/>
                 <defs>
                 <filter id="filter0_d" x="104.654" y="57.8452" width="495.602" height="326.892" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feFlood floodOpacity="0" result="BackgroundImageFix"/>
                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
                 <feOffset dx="4" dy="3"/>
                 <feGaussianBlur stdDeviation="7.5"/>
